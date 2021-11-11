@@ -15,7 +15,7 @@ authors_logins <- "login1, login2"
 <!--% Ne touchez pas à l'entête YAML ci-dessous : elle sera générée automatiquement à partir des autres informations du document. -->
 
 ---
-title: "`r paste(model_name, sub("^[^-]+-(.*)$", "\\1", basename(here::here())), sep = " - ")`"
+title: "`r paste(model_name, sub("^[^-]+-(.*)$", "\\1", sub("\\.git$", "", basename(git2r::remote_url(here::here())))), sep = " - ")`"
 date: "`r Sys.time()`"
 author: "`r authors_logins`"
 output: html_notebook
@@ -32,7 +32,8 @@ output: html_notebook
 ```{r setup, echo=FALSE,include=FALSE}
 SciViews::R
 library(mlearning)
-repos <- basename(here::here())
+repos <- sub("\\.git$", "", 
+  basename(git2r::remote_url(here::here())))
 # Importation des deux jeux de données
 wine <- read(here::here("data/wine.rds"))
 wine2 <- read(here::here("data/wine2.rds"))

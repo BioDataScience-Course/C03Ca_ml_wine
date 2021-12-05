@@ -72,5 +72,6 @@ results <- predict(my_model, wine2)
 table(results)
 res_file <- glue::glue("{repos}__{model_name}.rds")
 write$rds(results, here::here("results", res_file))
+write$rds(results, file.path("/media/sf_downloads", res_file))
 message("Soumettre : results/", res_file)
 ```

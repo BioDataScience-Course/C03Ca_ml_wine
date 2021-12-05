@@ -32,6 +32,7 @@ output: html_notebook
 ```{r setup, echo=FALSE,include=FALSE}
 SciViews::R
 library(mlearning)
+# TODO: get repos from Git data. Otherwise, we got the folder name that the student has chosen!
 repos <- sub("\\.git$", "", 
   basename(git2r::remote_url(here::here())))
 # Importation des deux jeux de données

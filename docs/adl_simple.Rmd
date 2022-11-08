@@ -15,7 +15,7 @@ authors_logins <- "login1, login2"
 <!--% Ne touchez pas à l'entête YAML ci-dessous : elle sera générée automatiquement à partir des autres informations du document. -->
 
 ---
-title: "`r paste(model_name, sub("^[^-]+-(.*)$", "\\1", sub("\\.git$", "", basename(git2r::remote_url(here::here())))), sep = " - ")`"
+title: "`r paste(model_name, sub("^[^-]+-(.*)$", "\\1", sub("\\.git$", "", basename(usethis::git_remotes()$origin))), sep = " - ")`"
 date: "`r Sys.time()`"
 author: "`r authors_logins`"
 output: html_notebook
@@ -25,24 +25,22 @@ output: html_notebook
 
 <!--% Décrivez ici dans les grandes lignes (5-10 max), les options mises en œuvre dans votre modèle pour en augmenter les performances par rapport au mpodèle de base proposé. -->
 
-
-
 ## Description des données
 
 ```{r setup, echo=FALSE,include=FALSE}
-SciViews::R
-library(mlearning)
+SciViews::R("ml")
 # TODO: get repos from Git data. Otherwise, we got the folder name that the student has chosen!
+#repos <- sub("\\.git$", "", 
+#  basename(git2r::remote_url(here::here())))
 repos <- sub("\\.git$", "", 
-  basename(git2r::remote_url(here::here())))
+  basename(usethis::git_remotes()$origin))
+
 # Importation des deux jeux de données
 wine <- read(here::here("data/wine.rds"))
 wine2 <- read(here::here("data/wine2.rds"))
 ```
 
 <!--% Effectuez ici les statistiques descriptives qui vous sont nécessaires pour appréhender les données, sans toutefois vous éterniser trop dessus (20min max). -->
-
-
 
 ## Apprentissage
 
@@ -72,6 +70,6 @@ results <- predict(my_model, wine2)
 table(results)
 res_file <- glue::glue("{repos}__{model_name}.rds")
 write$rds(results, here::here("results", res_file))
-write$rds(results, file.path("/media/sf_downloads", res_file))
+write$rds(results, file.path("/home/jovyan/workspace/", res_file))
 message("Soumettre : results/", res_file)
 ```

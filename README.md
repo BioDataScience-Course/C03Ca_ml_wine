@@ -14,4 +14,4 @@ Vos classifications doivent être soumises via l'interface dans le cours : soume
 
 **Votre objectif est de trouver le plus possible d'excellent vins dans `wine2`, mais attention, votre client ne tolère pas que vous lui indiquiez plus de 3/4 de vins qui ne seraient pas excellents dans votre liste de suggestions !**
 
-Les meilleures équipes seront nominées à la fin de la séance, et elles viendront exposer leur modèle devant la classe.
+Les meilleures équipes seront nominées à la fin de la séance.

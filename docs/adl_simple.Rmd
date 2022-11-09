@@ -6,7 +6,7 @@
 model_name <- "adl_simple"
 ```
 
-<!--% Indiquez les logins GitHub des membres du team ci dessous (remplaces 'login1' et 'login2' par vos logins respectifs). -->
+<!--% Indiquez les logins GitHub des membres du team ci dessous (remplacer 'login1' et 'login2' par vos logins respectifs). -->
 
 ```{r authors_logins, echo=FALSE}
 authors_logins <- "login1, login2"
@@ -23,17 +23,13 @@ output: html_notebook
 
 ## Résumé
 
-<!--% Décrivez ici dans les grandes lignes (5-10 max), les options mises en œuvre dans votre modèle pour en augmenter les performances par rapport au mpodèle de base proposé. -->
+<!--% Décrivez ici dans les grandes lignes (2-3 phrases max) les options mises en œuvre dans votre modèle pour en augmenter les performances par rapport au modèle de base `proposé`adl_simple`. -->
 
 ## Description des données
 
 ```{r setup, echo=FALSE,include=FALSE}
 SciViews::R("ml")
-# TODO: get repos from Git data. Otherwise, we got the folder name that the student has chosen!
-#repos <- sub("\\.git$", "", 
-#  basename(git2r::remote_url(here::here())))
-repos <- sub("\\.git$", "", 
-  basename(usethis::git_remotes()$origin))
+repos <- sub("\\.git$", "", basename(usethis::git_remotes()$origin))
 
 # Importation des deux jeux de données
 wine <- read(here::here("data/wine.rds"))
@@ -44,7 +40,7 @@ wine2 <- read(here::here("data/wine2.rds"))
 
 ## Apprentissage
 
-<!--% Placez ici le code en phase d'apprentissage et commentez-le brièvement. Appelez toujours votre modèle `my_model` ! -->
+<!--% Placez ici le code en phase d'apprentissage et commentez-le brièvement. Appelez toujours votre modèle `my_model` dans le code ci-dessous ! -->
 
 ```{r learning}
 set.seed(3643) # ATTENTION: utilisez ici un nombre différent pour chaque modèle!
@@ -56,20 +52,19 @@ my_model <- mlLda(data = wine, quality ~ .)
 <!--% Placez ici le code concernant la phase de test des performances de votre modèle avec un bref commentaire. -->
 
 ```{r testing}
-conf <- confusion(cvpredict(my_model, cv.k = 5), wine$quality)
+conf <- confusion(cvpredict(my_model, cv.k = 10), wine$quality)
 plot(conf)
 summary(conf)
 ```
 
 ## Soumission du modèle
 
-<!--% Pour déployer votre modèle sur `wine2` et enregistrer votre classification dans `results/<repos>__<model_name>.rds`, exécutez le chunk suivant SANS LE MODIFIER. Ensuite soumettez vos résultats qui sont dans ce fichier à partir de l'app Shiny <https://sdd.umons.ac.be/C03Sa_challenge> (voir aussi dans le cours en ligne à la section correspondante). -->
+<!--% Pour déployer votre modèle sur `wine2` et enregistrer votre classification dans `results/<repos>__<model_name>.rds`, exécutez le chunk suivant SANS LE MODIFIER. Ensuite, téléchargez ce fichier sur votre PC (onglet Files -> bouton More -> Export...) et soumettez vos résultats via l'app Shiny <https://sdd.umons.ac.be/C03Ca_ml_wine> (voir aussi dans le cours en ligne à la section correspondante). -->
 
 ```{r results}
 results <- predict(my_model, wine2)
 table(results)
 res_file <- glue::glue("{repos}__{model_name}.rds")
 write$rds(results, here::here("results", res_file))
-write$rds(results, file.path("/home/jovyan/workspace/", res_file))
 message("Soumettre : results/", res_file)
 ```

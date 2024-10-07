@@ -49,7 +49,7 @@ wine2 <- read(here::here("data/wine2.rds"))
 
 ```{r learning}
 set.seed(3643) # ATTENTION: utilisez ici un nombre différent pour chaque modèle !
-my_model <- mlLda(data = wine, quality ~ .)
+my_model <- ml_lda(data = wine, quality ~ .)
 ```
 
 ## Test
